@@ -1,73 +1,52 @@
 import JoblyApi from './api'
 import './App.css';
-import { useState } from 'react'
+import { BrowserRouter } from 'react-router-dom';
+import Routes from './components/routes';
+import Navbar from './components/Navbar/Navbar';
+import { registerUser, loginUser, logoutUser } from './utils'
+import { useState, useEffect } from 'react'
+import jwt from "jsonwebtoken"
+import UserContext from './components/UserContext'
 
-function App() {
-
+const App = () => {
   const initialState = {
     username: "",
-    password: "",
-    email: "",
-    firstName: "",
-    lastName: ""
+    firstName: ""
   }
-
-  const [formData, setFormData] = useState(initialState)
-  const [errors, setErrors] = useState([])
-
-  const handleChange = e => {
-    try {
-      const { name, value } = e.target
-
-      setFormData(data => ({
-        ...data,
-        [name]: value
-      }))
+  const [token, setToken] = useState(localStorage.getItem("userJWT") || null)
+  const [currUser, setCurrUser] = useState()
+  // keep track of user here
+  // use either state or context to do so
+  // context would be better as it can be passed around and updated in child components
+  
+  useEffect(() => {
+    const getUser = async () => {
+      JoblyApi.token = token
+      let res = await JoblyApi.getCurrentUser(jwt.decode(token).username)
+      setCurrUser(res)
     }
+    token ? getUser() : setCurrUser(initialState)
+  }, [token])
 
-    catch(err) {
-      console.log(err)
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem("userJWT", token)
+    } else {
+      localStorage.clear()
     }
-  }
-
-  const handleSubmit = async e => {
-    e.preventDefault()
-    let result = await JoblyApi.register(formData)
-    if (result.success) {
-      setFormData(initialState)
-      console.log(result)
-    }
-    else setErrors(result)
-  }
+  }, [token])
 
   return (
     <div className="App">
-      <form onSubmit={handleSubmit} >
-        <label htmlFor="username">Username</label>
-        <input type="text" 
-        name="username" id="username" 
-        onChange={handleChange} />
-        <label htmlFor="password">Password</label>
-        <input type="password" 
-        name="password" id="password" 
-        onChange={handleChange} />
-        <label htmlFor="firstName">First Name</label>
-        <input type="text" 
-        name="firstName" id="firstName" 
-        onChange={handleChange} />
-        <label htmlFor="lastName">Last Name</label>
-        <input type="text" 
-        name="lastName" id="lastName" 
-        onChange={handleChange} />
-        <label htmlFor="email">Email Address</label>
-        <input type="email" 
-        name="email" id="email" 
-        onChange={handleChange} />
-        <button type="submit">submit</button>
-      </form>
-      {errors.length ? <p>{errors}</p> : null}
+      <BrowserRouter>
+        <UserContext.Provider value={{ token, currUser }}>
+          <Navbar />
+        </UserContext.Provider>
+      </BrowserRouter>
+      I am App
     </div>
-  );
+  )
+
 }
 
 export default App;
