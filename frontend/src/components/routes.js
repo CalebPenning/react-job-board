@@ -1,4 +1,8 @@
 import { Route, Switch, Redirect } from "react-router-dom"
+import List from "./List/List"
+import Home from "./Home/Home"
+import Details from "./Details/Details"
+import UserForm from "./UserForm/UserForm"
 
 const Routes = () => (
     <>
@@ -16,10 +20,10 @@ const Routes = () => (
                 <List category="jobs" />
             </Route>
             <Route exact path="/login">
-                <UserForm type="login" />
+                <UserForm formType="login" />
             </Route>
             <Route exact path="/signup">
-                <UserForm type="signup" />
+                <UserForm formType="signup" />
             </Route>
         </Switch>
     </>

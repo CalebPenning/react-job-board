@@ -7,15 +7,11 @@ const registerUser = async (data, updateState) => {
 
 const loginUser = async (data, updateState) => {
     let res = await JoblyApi.login(data)
-    if (res.success)updateState(res.token)
+    if (res.success) updateState(res.token)
 }
 
 const logoutUser = updateState => {
     updateState(null)
 }
 
-module.exports = {
-    registerUser,
-    loginUser,
-    logoutUser
-}
+export { registerUser, loginUser, logoutUser }

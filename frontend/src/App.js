@@ -3,7 +3,6 @@ import './App.css';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './components/routes';
 import Navbar from './components/Navbar/Navbar';
-import { registerUser, loginUser, logoutUser } from './utils'
 import { useState, useEffect } from 'react'
 import jwt from "jsonwebtoken"
 import UserContext from './components/UserContext'
@@ -33,17 +32,18 @@ const App = () => {
       localStorage.setItem("userJWT", token)
     } else {
       localStorage.clear()
+      JoblyApi.token = null
     }
   }, [token])
 
   return (
     <div className="App">
       <BrowserRouter>
-        <UserContext.Provider value={{ token, currUser }}>
+        <UserContext.Provider value={{ token, currUser, setToken }}>
           <Navbar />
+          <Routes />
         </UserContext.Provider>
       </BrowserRouter>
-      I am App
     </div>
   )
 
