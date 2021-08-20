@@ -1,6 +1,7 @@
 import './List.css'
 import JoblyApi from '../../api'
 import UserContext from '../UserContext'
+import Card from '../Card/Card'
 import { useContext, useEffect, useState } from 'react'
 
 const List = ({ category }) => {
@@ -44,22 +45,26 @@ const List = ({ category }) => {
         setDoSearch(true)
     }
     return (
-        <div>Placeholder</div>
-        // code below works to display data
-        // replace with reusable card components
-
-        
-        // category === 'companies' ? (<div>
-        //     {data.map((el, i) => (
-        //         <div key={i}>{el.name}</div>
-        //     ))}
-        // </div>) 
-        // : (
         // <div>
-        //     {data.map((el, i) => (
-        //         <div key={i}>{el.title}</div>
-        //     ))}
-        // </div>)
+        // // code below works to display data
+        // // replace with reusable card components
+
+
+        category === 'companies' ? (
+        <div className="album py-5">
+            <div className="container">
+                {data.map((el, i) => (
+                    <Card key={i} data={el} category={category} />
+                ))}
+            </div>
+        </div>) 
+        : (
+        <div>
+            {data.map((el, i) => (
+                <div key={i}>{el.title}</div>
+            ))}
+        </div>)
+        // Placeholder</div>
     )
 }
 

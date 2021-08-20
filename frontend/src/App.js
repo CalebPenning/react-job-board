@@ -1,5 +1,4 @@
 import JoblyApi from './api'
-import './App.css';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './components/routes';
 import Navbar from './components/Navbar/Navbar';
@@ -37,7 +36,7 @@ const App = () => {
   }, [token])
 
   return (
-    <div className="App">
+    <div className="container">
       <BrowserRouter>
         <UserContext.Provider value={{ token, currUser, setToken }}>
           <Navbar />
