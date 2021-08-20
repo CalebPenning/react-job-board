@@ -1,6 +1,10 @@
+import { useEffect } from "react"
 import JoblyApi from "../../api"
 
-const SearchForm = ({ category }) => {
+const SearchForm = ({ category, setData }) => {
+    useEffect(() => {
+        
+    })
     return (
         <form>
             <input type="text" id="search" />

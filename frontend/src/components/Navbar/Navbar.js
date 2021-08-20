@@ -12,20 +12,30 @@ const Navbar = () => {
     if (token) currUser = jwt.decode(token).username
     if (currUser) {
         return (
-        <nav className="navbar">
-            <NavLink exact to="/" className="navbar-brand">
-                Jobly
-            </NavLink>
-            <NavLink exact to="/companies">
-                Companies
-            </NavLink>
-            <NavLink exact to="/jobs">
-                Jobs
-            </NavLink>
-            <NavLink exact to="/profile" >
-                Profile
-            </NavLink>
-            <NavLink onClick={() => {logoutUser(setToken)}} to="/logout" >Logout</NavLink>
+        <nav className="navbar navbar-expand-md">
+                    <NavLink exact to="/" className="navbar-brand">
+                        Jobly
+                    </NavLink>
+            <ul className="navbar-nav ml-auto">
+                <li className="nav-item mr-4">
+                    <NavLink exact to="/companies">
+                        Companies
+                    </NavLink>
+                </li>
+                <li className="nav-item mr-4">
+                    <NavLink exact to="/jobs">
+                        Jobs
+                    </NavLink>
+                </li>
+                <li className="nav-item mr-4">
+                    <NavLink exact to="/profile" >
+                        Profile
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink onClick={() => {logoutUser(setToken)}} to="/logout" >Logout</NavLink>
+                </li>
+            </ul>
         </nav>
     )} else {
         return (
