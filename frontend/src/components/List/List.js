@@ -59,10 +59,12 @@ const List = ({ category }) => {
             </div>
         </div>) 
         : (
-        <div>
+        <div className="album py-5">
+            <div className="container">
             {data.map((el, i) => (
-                <div key={i}>{el.title}</div>
+                <Card key={el.id} data={el} category={category} />
             ))}
+            </div>
         </div>)
         // Placeholder</div>
     )

@@ -34,7 +34,7 @@ const Details = () => {
             </div>
         )
         : (
-            <div></div>
+            <h1>Loading...</h1>
         )
     )
 }

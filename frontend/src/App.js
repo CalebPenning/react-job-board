@@ -35,10 +35,25 @@ const App = () => {
     }
   }, [token])
 
+  const applyForJob = async id => {
+    const jobId = await JoblyApi.applyToJob(currUser.username, id)
+    if (currUser.applications) {
+      setCurrUser(user => ({
+        ...user,
+        applications: [...user.applications, jobId]
+      }))
+    } else {
+      setCurrUser(user => ({
+        ...user,
+        applications: [jobId]
+      }))
+    }
+  }
+
   return (
-    <div className="container">
+    <div className="App">
       <BrowserRouter>
-        <UserContext.Provider value={{ token, currUser, setToken }}>
+        <UserContext.Provider value={{ token, currUser, setToken, applyForJob }}>
           <Navbar />
           <Routes />
         </UserContext.Provider>
