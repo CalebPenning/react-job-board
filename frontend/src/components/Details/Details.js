@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { NavLink, useParams } from "react-router-dom"
+import Card from "../Card/Card"
 import JoblyApi from "../../api"
 
 const Details = () => {
@@ -18,18 +19,11 @@ const Details = () => {
     }, [handle])
     return (
         !isLoading ? (
-            <div>
+            <div className="container">
             <h3>{company.name}</h3>
             <h4>{company.description}</h4>
-                {company.jobs.map(el => (
-                    <div className="card">
-                        <div className="card-body">
-                            <h5 className="card-title">{el.title}</h5>
-                            <p className="card-text">Salary: {el.salary}</p>
-                            <p className="card-text">Equity: {el.equity}</p>
-                            <button className="btn btn-primary btn-danger float-right">Apply</button>
-                        </div>    
-                    </div>
+                {company.jobs.map((el, i) => (
+                    <Card key={i} data={el} category="jobs" />
                 ))}
             </div>
         )

@@ -1,14 +1,14 @@
 import './List.css'
 import JoblyApi from '../../api'
-import UserContext from '../UserContext'
 import Card from '../Card/Card'
-import { useContext, useEffect, useState } from 'react'
+import SearchForm from '../SearchForm/SearchForm'
+import { useEffect, useState } from 'react'
 
 const List = ({ category }) => {
     const [data, setData] = useState([])
-    const [searchTerm, setSearchTerm] = useState("")
-    const [doSearch, setDoSearch] = useState(false)
-    const { token } = useContext(UserContext)
+    // const [searchTerm, setSearchTerm] = useState("")
+    // const [doSearch, setDoSearch] = useState(false)
+    // const { token } = useContext(UserContext)
 
     useEffect(() => {
         async function getData(category) {
@@ -23,27 +23,6 @@ const List = ({ category }) => {
         getData(category)
     }, [category])
 
-    useEffect(() => {
-        async function searchData() {
-            if (category === 'companies' && doSearch) {
-                let searchRes = await JoblyApi.getAllCompanies(searchTerm)
-                setData(searchRes)
-            } else if (category === 'jobs' && doSearch) {
-                let searchRes = await JoblyApi.getJobs(searchTerm)
-                setData(searchRes)
-            }
-        }
-        if (doSearch) searchData()
-    }, [doSearch])
-
-    const updateSearch = e => {
-        setSearchTerm(e.target.value)
-    }
-
-    const search = e => {
-        e.preventDefault()
-        setDoSearch(true)
-    }
     return (
         // <div>
         // // code below works to display data
@@ -53,6 +32,7 @@ const List = ({ category }) => {
         category === 'companies' ? (
         <div className="album py-5">
             <div className="container">
+            <SearchForm category={category} setData={setData} />
                 {data.map((el, i) => (
                     <Card key={i} data={el} category={category} />
                 ))}

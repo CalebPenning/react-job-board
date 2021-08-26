@@ -1,4 +1,4 @@
-import axios from "axios";
+  import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
@@ -66,12 +66,12 @@ class JoblyApi {
   }
 
   static async getAllCompanies(searchTerm) {
-    let res = await this.request(`companies`, {searchTerm})
+    let res = await this.request(`companies`, {name: searchTerm})
     return res.companies 
   }
 
   static async getJobs(searchTerm) {
-    let res = await this.request("jobs", {searchTerm})
+    let res = await this.request("jobs", {title: searchTerm})
     return res.jobs
   }
 

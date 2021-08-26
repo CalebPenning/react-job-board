@@ -1,12 +1,14 @@
 import { NavLink } from "react-router-dom"
 import UserContext from "../UserContext"
 import { useContext } from "react"
+import urls from "../static/urls"
+import "./Card.css"
 
 const Card = ({ data, category }) => {
     const { token, currUser, applyForJob } = useContext(UserContext)
-    const getRandLogo = () => {
-        let rand = Math.ceil(Math.random() * 3)
-        return `../static/logo${rand}.jpg`
+    const getRandLogo = (arr) => {
+        let rand = Math.ceil(Math.random() * arr.length - 1)
+        return arr[rand]
     }
 
     const hasApplied =
@@ -19,7 +21,7 @@ const Card = ({ data, category }) => {
                 <div className="card text-left reuse-card" style={{width: "100%"}}>
                     <div className="card-body">
                         <h5 className="card-title">{data.name}</h5>
-                        {/* <img className="float-right" src={getRandLogo()} alt="Random generic company logo. Used for mockup." /> */}
+                        <img className="company-logo" src={getRandLogo(urls)} alt="Random generic company logo. Used for mockup." />
                         <p className="card-text">{data.description}</p>
                     </div>
                 </div>

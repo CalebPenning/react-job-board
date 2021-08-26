@@ -19,7 +19,7 @@ const Routes = () => {
                     { token ? <List category="companies" /> : <Redirect to="/login" />}
                 </Route>
                 <Route path="/companies/:handle" >
-                    <Details />
+                    { token ? <Details /> : <Redirect to="/login" />}
                 </Route>
                 <Route exact path="/jobs">
                     { token ? <List category="jobs" /> : <Redirect to="/login" />}
