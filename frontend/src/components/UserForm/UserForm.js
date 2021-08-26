@@ -5,8 +5,8 @@ import JoblyApi from '../../api'
 import { useState } from "react"
 import { Redirect } from 'react-router-dom'
 
-const UserForm = ({ user, formType }) => {
-    const { token, setToken, currUser } = useContext(UserContext)
+const UserForm = ({ formType }) => {
+    const { token, setToken } = useContext(UserContext)
     let initialState
     if (formType === "login") {
         initialState = {

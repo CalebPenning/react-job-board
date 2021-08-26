@@ -12,8 +12,14 @@ const SearchForm = ({ category, setData }) => {
         }
     }
 
+    const doSubmit = e => {
+        e.preventDefault()
+        searchForData(category, setData)
+        document.getElementById('search').value = ""
+    }
+
     return (
-            <form className="input-group mb-3" >
+            <form className="input-group mb-3" onSubmit={doSubmit} >
             <input type="text" className="form-control" id="search" />
             <button className="btn btn-outline-primary"  >Search</button>
             </form>

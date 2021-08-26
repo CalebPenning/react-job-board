@@ -5,6 +5,7 @@ import Details from "./Details/Details"
 import UserForm from "./UserForm/UserForm"
 import { useContext } from "react"
 import UserContext from "./UserContext"
+import NotFound from "./NotFound/NotFound"
 
 
 const Routes = () => {
@@ -33,6 +34,7 @@ const Routes = () => {
                 <Route exact path="/logout">
                     <Redirect to='/' />
                 </Route>
+                <NotFound />
             </Switch>
         </>
     )

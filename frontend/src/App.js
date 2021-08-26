@@ -7,10 +7,6 @@ import jwt from "jsonwebtoken"
 import UserContext from './components/UserContext'
 
 const App = () => {
-  const initialState = {
-    username: "",
-    firstName: ""
-  }
   const [token, setToken] = useState(localStorage.getItem("userJWT") || null)
   const [currUser, setCurrUser] = useState()
   // keep track of user here
@@ -23,7 +19,7 @@ const App = () => {
       let res = await JoblyApi.getCurrentUser(jwt.decode(token).username)
       setCurrUser(res)
     }
-    token ? getUser() : setCurrUser(initialState)
+    token ? getUser() : setCurrUser({username: "", firstName: ""})
   }, [token])
 
   useEffect(() => {
