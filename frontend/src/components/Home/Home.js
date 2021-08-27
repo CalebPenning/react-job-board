@@ -7,6 +7,7 @@ const Home = ({ message }) => {
     if (!currUser) return <Loading />
     if (currUser.username) return (
         <div className="pt-5">
+           { message && <div className="alert alert-success">{message}</div> }
         <div className="jumbotron text-center pt-5">
             <div className="container">
                 <h1 className="jumbotron-header text-primary display-4">Jobly</h1>

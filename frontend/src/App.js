@@ -8,10 +8,9 @@ import UserContext from './components/UserContext'
 
 const App = () => {
   const [token, setToken] = useState(localStorage.getItem("userJWT") || null)
+  const [hasUpdated, setHasUpdated] = useState(false)
   const [currUser, setCurrUser] = useState()
-  // keep track of user here
-  // use either state or context to do so
-  // context would be better as it can be passed around and updated in child components
+
   
   useEffect(() => {
     const getUser = async () => {
@@ -19,8 +18,22 @@ const App = () => {
       let res = await JoblyApi.getCurrentUser(jwt.decode(token).username)
       setCurrUser(res)
     }
-    token ? getUser() : setCurrUser({username: "", firstName: ""})
-  }, [token, currUser])
+    // LOGIN CASE: if token, getUser
+    // UPDATE CASE: if hasUpdated = true, getUser and set it false
+    
+    if (token) {
+      getUser()
+    } else if (hasUpdated) {
+      getUser()
+      setHasUpdated(false)
+    } else setCurrUser({})
+    // token || hasUpdated ? getUser() : setCurrUser({username: "", firstName: ""})
+  }, [token, hasUpdated]
+  // Note: removed deps array, seems to make the username as intended.
+  // Someday I'll know how to use useEffect correctly :(
+    // Additional Note: it was just calling the API over and over again.
+    // Trying to figure out how to handle this lol
+  )
 
   useEffect(() => {
     if (token) {
@@ -49,7 +62,7 @@ const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
-        <UserContext.Provider value={{ token, currUser, setToken, applyForJob }}>
+        <UserContext.Provider value={{ token, currUser, setToken, applyForJob, setHasUpdated }}>
           <Navbar />
           <Routes />
         </UserContext.Provider>

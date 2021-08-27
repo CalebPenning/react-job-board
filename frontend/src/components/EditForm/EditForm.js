@@ -1,12 +1,12 @@
 import './EditForm.css'
-import { useContext, useState, useEffect } from "react"
+import { useContext, useState } from "react"
 import UserContext from "../UserContext"
 import JoblyApi from "../../api"
-import { Redirect } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 const EditForm = () => {
-    const { currUser } = useContext(UserContext)
-    const [updated, setIsUpdated] = useState(false)
+    const { currUser, setHasUpdated } = useContext(UserContext)
+    const history = useHistory()
     const [formData, setFormData] = useState({ firstName: "", lastName: "", email: "" })
 
     const handleChange = e => {
@@ -22,12 +22,13 @@ const EditForm = () => {
         console.log("Form Data: ", formData)
         let res = await JoblyApi.editProfile(currUser.username, formData)
         console.log(res)
-        if (res.user) setIsUpdated(true)
+        if (res.user) {
+            setHasUpdated(true)
+            history.push('/')
+        }
     }
 
-    if (updated) return <Redirect to="/" />
-
-    else return (
+    return (
     <div className="pt-5">
         <div className="col-md-6 col-lg-4 offset-md-3 offset-lg-4">
         <div className="card text-center">
