@@ -12,7 +12,7 @@ const Navbar = () => {
     if (token) currUser = jwt.decode(token).username
     if (currUser) {
         return (
-        <div className="container-fluid" >
+        <div className="container-fluid sticky-top bg-light" >
         <nav className="navbar navbar-expand-md">
                     <NavLink exact to="/" className="navbar-brand">
                         Jobly
@@ -41,17 +41,21 @@ const Navbar = () => {
         </div>
     )} else {
         return (
-            <nav className="navbar">
-                <NavLink exact to="/" className="navbar-brand">
-                    Jobly
-                </NavLink>
-                <NavLink exact to="/signup">
-                    Sign Up
-                </NavLink>
-                <NavLink exact to="/login">
-                    Login
-                </NavLink>
-            </nav>
+            <div className="container-fluid sticky-top bg-light">
+                <nav className="navbar navbar-expand-md">
+                    <NavLink exact to="/" className="navbar-brand">
+                        Jobly
+                    </NavLink>
+                    <ul className="navbar-nav ml-auto">
+                        <NavLink exact to="/signup">
+                            Sign Up
+                        </NavLink>
+                        <NavLink exact to="/login">
+                            Login
+                        </NavLink>
+                    </ul>
+                </nav>
+            </div>
         )
     }
 }

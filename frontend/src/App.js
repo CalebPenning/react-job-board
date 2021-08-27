@@ -20,7 +20,7 @@ const App = () => {
       setCurrUser(res)
     }
     token ? getUser() : setCurrUser({username: "", firstName: ""})
-  }, [token])
+  }, [token, currUser])
 
   useEffect(() => {
     if (token) {

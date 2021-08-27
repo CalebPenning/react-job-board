@@ -50,7 +50,7 @@ class JoblyApi {
 
   static async editProfile(username, data) {
     let res = await this.request(`users/${username}`, data, "patch")
-    return res.user
+    return res
   }
 
   static async getCurrentUser(username) {

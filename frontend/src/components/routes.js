@@ -6,6 +6,7 @@ import UserForm from "./UserForm/UserForm"
 import { useContext } from "react"
 import UserContext from "./UserContext"
 import NotFound from "./NotFound/NotFound"
+import EditForm from "./EditForm/EditForm"
 
 
 const Routes = () => {
@@ -17,13 +18,16 @@ const Routes = () => {
                     <Home />
                 </Route>
                 <Route exact path="/companies">
-                    { token ? <List category="companies" /> : <Redirect to="/login" />}
+                    { token ? <List category="companies" /> : <Redirect to="/login" /> }
                 </Route>
                 <Route path="/companies/:handle" >
                     { token ? <Details /> : <Redirect to="/login" />}
                 </Route>
                 <Route exact path="/jobs">
-                    { token ? <List category="jobs" /> : <Redirect to="/login" />}
+                    { token ? <List category="jobs" /> : <Redirect to="/login" /> }
+                </Route>
+                <Route exact path="/profile">
+                    { token ? <EditForm /> : <Redirect to="/login" /> }
                 </Route>
                 <Route exact path="/login">
                     <UserForm formType="login" />
@@ -34,7 +38,9 @@ const Routes = () => {
                 <Route exact path="/logout">
                     <Redirect to='/' />
                 </Route>
-                <NotFound />
+                <Route path="/*">
+                    <NotFound />
+                </Route>
             </Switch>
         </>
     )
