@@ -21,9 +21,9 @@ const App = () => {
     // LOGIN CASE: if token, getUser
     // UPDATE CASE: if hasUpdated = true, getUser and set it false
     
-    if (token) {
+    if (token && !hasUpdated) {
       getUser()
-    } else if (hasUpdated) {
+    } else if (hasUpdated && token) {
       getUser()
       setHasUpdated(false)
     } else setCurrUser({})

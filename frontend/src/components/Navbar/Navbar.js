@@ -39,25 +39,30 @@ const Navbar = () => {
             </ul>
         </nav>
         </div>
-    )} else {
-        return (
+    )} 
+    
+    else return (
             <div className="container-fluid sticky-top bg-light">
                 <nav className="navbar navbar-expand-md">
                     <NavLink exact to="/" className="navbar-brand">
                         Jobly
                     </NavLink>
                     <ul className="navbar-nav ml-auto">
-                        <NavLink exact to="/signup">
-                            Sign Up
-                        </NavLink>
-                        <NavLink exact to="/login">
-                            Login
-                        </NavLink>
+                        <li className="nav-item mr-auto">    
+                            <NavLink className="nav-link" exact to="/signup">
+                                Sign Up
+                            </NavLink>
+                        </li>
+                        <li className="nav-item mr-auto">
+                            <NavLink className="nav-link" exact to="/login">
+                                Login
+                            </NavLink>
+                        </li>
                     </ul>
                 </nav>
             </div>
         )
-    }
 }
+
 
 export default Navbar
